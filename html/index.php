@@ -1,9 +1,14 @@
-<?php 
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // GPIO pin number
 $pin = 21;
 
 // Handle brightness adjustment
 if (isset($_POST['brightness'])) {
+    error_log('Brightness: ' . $_POST['brightness']);
     $targetBrightness = filter_var($_POST['brightness'], FILTER_VALIDATE_INT, [
         'options' => ['default' => 0, 'min_range' => 0, 'max_range' => 255]
     ]);
@@ -14,6 +19,7 @@ if (isset($_POST['brightness'])) {
 
 // Handle auto-brightness toggle
 if (isset($_POST['autoBrightness'])) {
+    error_log('AutoBrightness: ' . $_POST['autoBrightness']);
     $autoBrightness = filter_var($_POST['autoBrightness'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
     $configFile = '/var/www/html/window.conf';
